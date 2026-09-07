@@ -1,0 +1,8 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{{ title|default('Horizon Community Savings') }}</title><link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head>
+<body>
+<header class="masthead"><a class="brand" href="{{ url_for('home') }}">HORIZON<br><span>COMMUNITY SAVINGS</span></a><nav aria-label="Primary"><a href="{{ url_for('home') }}">Briefing</a><a href="{{ url_for('reset') }}">Reset lab</a></nav></header>
+<main><div class="warning">TRAINING SYSTEM / INTENTIONALLY VULNERABLE / LOCAL USE ONLY</div>{% block content %}{% endblock %}</main>
+<footer>Fictional bank. No real accounts, money, credentials, or customer data.</footer><script src="{{ url_for('static', filename='js/soc-monitor.js') }}"></script>
+</body></html>

@@ -1,0 +1,3 @@
+CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username TEXT UNIQUE, password TEXT);
+CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY, name TEXT, category TEXT, description TEXT);
+CREATE TABLE IF NOT EXISTS accounts (id INTEGER PRIMARY KEY, account_number TEXT UNIQUE, owner TEXT, balance INTEGER);
