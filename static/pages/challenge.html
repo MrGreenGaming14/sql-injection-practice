@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="GitHub Pages browser simulation of the Horizon Community Savings SQL injection lab. Runs entirely in your browser with an in-memory sql.js SQLite database.">
+<title>Browser SQL lab | Horizon Community Savings</title>
+<link rel="stylesheet" href="./challenge.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to the lab</a>
+<header class="masthead">
+  <a class="brand" href="./index.html">HORIZON<br><span>COMMUNITY SAVINGS</span></a>
+  <nav aria-label="Primary">
+    <a href="./index.html">Lab docs</a>
+    <button class="button secondary" type="button" data-role="reset-lab">Reset lab</button>
+  </nav>
+</header>
+<main id="main">
+  <div class="warning">BROWSER SIMULATION / INTENTIONALLY VULNERABLE / FICTIONAL DATA ONLY</div>
+
+  <div class="engine-error" data-role="engine-error" role="alert" hidden>
+    <strong>The browser SQLite engine could not be loaded.</strong>
+    <p>This simulation needs an internet connection the first time it loads, because the sql.js engine is fetched from a public CDN. Reconnect and reload this page, or run the local Flask lab instead, which does not need the CDN.</p>
+  </div>
+
+  <section class="hero" aria-labelledby="lab-title">
+    <p class="eyebrow">GITHUB PAGES BROWSER SIMULATION &mdash; NOT THE FLASK SERVER LAB</p>
+    <h1 id="lab-title">Learn to spot the <em>query</em> behind the counter.</h1>
+    <p>This static page recreates the four Horizon missions entirely in your browser. A real SQLite engine (sql.js) runs in memory inside this tab; there is no Python, no server, and no database file. Nothing you type is sent anywhere. The Flask version of this lab is a separate program you run locally; the lab docs page explains both modes.</p>
+    <p class="engine-status" data-role="engine-status" role="status">Loading the browser SQLite engine (sql.js)&hellip;</p>
+    <p class="progress" data-role="progress" aria-label="Progress">0 of 4 levels complete</p>
+    <aside class="notice" aria-labelledby="safety-title">
+      <h2 id="safety-title">Safety notice</h2>
+      <ul>
+        <li>This simulation executes entirely in your browser. No request reaches a server, and progress lives only in this browser's local storage.</li>
+        <li>The local Flask lab is a separate, unrelated program: it runs at 127.0.0.1, uses a real SQLite file, and writes real server logs.</li>
+        <li>Every account, product, balance, secret file, and log event here is fictional classroom data.</li>
+        <li>Practice only in this lab or the local Flask lab. Never test these techniques against systems without explicit permission.</li>
+      </ul>
+    </aside>
+  </section>
+
+  <section class="panel soc" id="soc-activity" aria-labelledby="soc-title">
+    <p class="eyebrow">SOC ACTIVITY &mdash; FICTIONAL EVENTS ONLY</p>
+    <h2 id="soc-title">Secret files &amp; simulated SOC log</h2>
+    <p class="soc-limit">GitHub Pages serves static files only. It cannot see your real IP address and keeps no server logs. The events below are fabricated inside this browser tab and use <code>192.0.2.42</code>, a placeholder address reserved for documentation (TEST-NET-1). This is <strong>not</strong> a real server-side IP log.</p>
+    <h3>Training secret files (fictional)</h3>
+    <ul class="file-list">
+      <li><button class="button secondary" type="button" data-secret="super_secret_employee_roster.txt">Simulate access: employee roster</button></li>
+      <li><button class="button secondary" type="button" data-secret="super_secret_transaction_notes.txt">Simulate access: transaction notes</button></li>
+      <li><button class="button secondary" type="button" data-secret="super_secret_soc_report.txt">Simulate access: SOC report</button></li>
+    </ul>
+    <div class="secret-view" data-role="secret-view" aria-live="polite"></div>
+    <h3>Simulated activity log</h3>
+    <p class="soc-note">Each simulated access also prints a console warning. The log exists only in this tab and disappears when the page reloads.</p>
+    <div class="table-wrap">
+      <table>
+        <caption class="visually-hidden">Simulated, browser-only SOC activity log with fictional events</caption>
+        <thead><tr><th scope="col">Timestamp</th><th scope="col">Filename</th><th scope="col">Route</th><th scope="col">Method</th><th scope="col">Source IP</th></tr></thead>
+        <tbody data-role="soc-log"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="level" id="level-login" data-level="login" aria-labelledby="login-title">
+    <p class="eyebrow">MISSION 01</p>
+    <h2 id="login-title">Level 1: Sign-in</h2>
+    <p class="level-status" data-role="status-line"></p>
+    <p class="locked-note" data-role="locked-note" hidden>Locked &mdash; levels unlock in order. Finish the previous level first.</p>
+    <aside class="directions" aria-labelledby="login-directions-title">
+      <p class="eyebrow">START HERE</p>
+      <h3 id="login-directions-title">Before you submit</h3>
+      <ol>
+        <li><strong>Objective:</strong> see how the two sign-in fields are glued into one database query, and how that can change the query's logic.</li>
+        <li><strong>Fields to investigate:</strong> the username and password inputs below.</li>
+        <li><strong>Normal behavior:</strong> the sticky-note credentials sign in successfully; ordinary wrong guesses fail.</li>
+        <li><strong>Unusual behavior:</strong> punctuation typed into a field can become part of the SQL condition and change whether it is true.</li>
+        <li><strong>Success criteria:</strong> a sign-in is accepted with a success message and Level 2 unlocks.</li>
+        <li><strong>Authorized use only:</strong> fictional classroom exercise. Practice only in this lab or the local Flask version; never test these techniques on a real service.</li>
+      </ol>
+    </aside>
+    <aside class="credential-note" aria-labelledby="credential-note-title">
+      <p class="eyebrow">CLASSROOM TRAINING CREDENTIAL</p>
+      <h3 id="credential-note-title">Normal Alex sign-in</h3>
+      <dl>
+        <dt>Username</dt><dd><code>alex</code></dd>
+        <dt>Password</dt><dd><code>bluebird</code></dd>
+      </dl>
+      <p>Fictional training data only. This sticky note belongs to the lab, not to a real person.</p>
+    </aside>
+    <form data-form="login">
+      <label for="login-username">Username</label>
+      <input id="login-username" name="username" autocomplete="off" spellcheck="false" required>
+      <label for="login-password">Password</label>
+      <input id="login-password" name="password" autocomplete="off" spellcheck="false" required>
+      <button class="button" type="submit">Run query</button>
+    </form>
+    <div class="result" data-role="result" role="status" aria-live="polite" tabindex="-1" hidden></div>
+    <p class="success-actions" data-role="success-actions" hidden>
+      <button class="button" type="button" data-role="continue">Continue to level 2</button>
+    </p>
+    <div class="hints" data-role="hints" hidden>
+      <strong>Unlocked hints (<span data-role="hint-count">0</span>/3)</strong>
+      <ol data-role="hint-list"></ol>
+    </div>
+  </section>
+
+  <section class="level" id="level-search" data-level="search" aria-labelledby="search-title">
+    <p class="eyebrow">MISSION 02</p>
+    <h2 id="search-title">Level 2: Catalog search</h2>
+    <p class="level-status" data-role="status-line"></p>
+    <p class="locked-note" data-role="locked-note" hidden>Locked &mdash; levels unlock in order. Finish the previous level first.</p>
+    <aside class="directions" aria-labelledby="search-directions-title">
+      <p class="eyebrow">START HERE</p>
+      <h3 id="search-directions-title">Before you submit</h3>
+      <ol>
+        <li><strong>Objective:</strong> learn how a search box meets SQL, and why appending a second SELECT needs compatible result columns.</li>
+        <li><strong>Fields to investigate:</strong> the search term. The catalog table displays three columns: name, category, and description.</li>
+        <li><strong>Normal behavior:</strong> a known product word returns product rows; a nonsense term returns none.</li>
+        <li><strong>Unusual behavior:</strong> a crafted term can close the search string early and append a second query whose rows must fit the same three columns.</li>
+        <li><strong>Success criteria:</strong> rows appear that did not come from the products table, a success message confirms it, and Level 3 unlocks.</li>
+        <li><strong>Authorized use only:</strong> fictional classroom exercise. Practice only in this lab or the local Flask version; never test these techniques on a real service.</li>
+      </ol>
+    </aside>
+    <form data-form="search">
+      <label for="search-term">Search the public catalog</label>
+      <input id="search-term" name="term" autocomplete="off" spellcheck="false" required>
+      <button class="button" type="submit">Run query</button>
+    </form>
+    <div class="result" data-role="result" role="status" aria-live="polite" tabindex="-1" hidden></div>
+    <p class="success-actions" data-role="success-actions" hidden>
+      <button class="button" type="button" data-role="continue">Continue to level 3</button>
+    </p>
+    <div class="hints" data-role="hints" hidden>
+      <strong>Unlocked hints (<span data-role="hint-count">0</span>/3)</strong>
+      <ol data-role="hint-list"></ol>
+    </div>
+  </section>
+
+  <section class="level" id="level-account-lookup" data-level="account-lookup" aria-labelledby="account-title">
+    <p class="eyebrow">MISSION 03</p>
+    <h2 id="account-title">Level 3: Account lookup</h2>
+    <p class="level-status" data-role="status-line"></p>
+    <p class="locked-note" data-role="locked-note" hidden>Locked &mdash; levels unlock in order. Finish the previous level first.</p>
+    <aside class="directions" aria-labelledby="account-directions-title">
+      <p class="eyebrow">START HERE</p>
+      <h3 id="account-directions-title">Before you submit</h3>
+      <ol>
+        <li><strong>Objective:</strong> practice boolean inference by comparing how the response changes between a true and a false condition.</li>
+        <li><strong>Fields to investigate:</strong> the account number. The counter account is <code>10001</code> (Alex Rivera); also try an unknown number, then carefully varied additions to the field.</li>
+        <li><strong>Normal behavior:</strong> account 10001 matches exactly one row; an unknown number matches none and reports FALSE.</li>
+        <li><strong>Unusual behavior:</strong> closing the quoted value early lets extra boolean logic change how many rows answer.</li>
+        <li><strong>Success criteria:</strong> a TRUE response that returns more rows than any single account could, unlocking Level 4.</li>
+        <li><strong>Authorized use only:</strong> fictional classroom exercise. Practice only in this lab or the local Flask version; never test these techniques on a real service.</li>
+      </ol>
+    </aside>
+    <form data-form="account-lookup">
+      <label for="account-number">Account number</label>
+      <input id="account-number" name="account_number" autocomplete="off" spellcheck="false" required>
+      <button class="button" type="submit">Run query</button>
+    </form>
+    <div class="result" data-role="result" role="status" aria-live="polite" tabindex="-1" hidden></div>
+    <p class="success-actions" data-role="success-actions" hidden>
+      <button class="button" type="button" data-role="continue">Continue to level 4</button>
+    </p>
+    <div class="hints" data-role="hints" hidden>
+      <strong>Unlocked hints (<span data-role="hint-count">0</span>/3)</strong>
+      <ol data-role="hint-list"></ol>
+    </div>
+  </section>
+
+  <section class="level" id="level-transfer" data-level="transfer" aria-labelledby="transfer-title">
+    <p class="eyebrow">MISSION 04</p>
+    <h2 id="transfer-title">Level 4: Transfer simulator</h2>
+    <p class="level-status" data-role="status-line"></p>
+    <p class="locked-note" data-role="locked-note" hidden>Locked &mdash; levels unlock in order. Finish the previous level first.</p>
+    <aside class="directions" aria-labelledby="transfer-directions-title">
+      <p class="eyebrow">START HERE</p>
+      <h3 id="transfer-directions-title">Before you submit</h3>
+      <ol>
+        <li><strong>Objective:</strong> see how numeric input can steer which account row a query selects.</li>
+        <li><strong>Fields to investigate:</strong> the source account (the only field used in the SQL), plus the destination account and amount (display-only simulation fields).</li>
+        <li><strong>Normal behavior:</strong> a plain numeric source selects at most one account; an unknown number selects none.</li>
+        <li><strong>Unusual behavior:</strong> a numeric expression with comparison logic can widen the selection to several candidate rows.</li>
+        <li><strong>Success criteria:</strong> a candidate source is selected by your expression, the receipt states that no money moved, and the lab is complete.</li>
+        <li><strong>Authorized use only:</strong> fictional classroom exercise. Practice only in this lab or the local Flask version; never test these techniques on a real service.</li>
+      </ol>
+    </aside>
+    <aside class="notice" aria-labelledby="transfer-note-title">
+      <h3 id="transfer-note-title">Simulation-only fields</h3>
+      <p>Destination account and amount appear on the receipt only. They never touch SQL, no money ever moves, and this in-memory database is rebuilt every time the page loads.</p>
+    </aside>
+    <form data-form="transfer">
+      <label for="source-account">Source account</label>
+      <input id="source-account" name="source_account" autocomplete="off" spellcheck="false" required>
+      <label for="destination-account">Destination account (simulation only)</label>
+      <input id="destination-account" name="destination_account" autocomplete="off" spellcheck="false" required>
+      <label for="amount">Amount (simulation only)</label>
+      <input id="amount" name="amount" autocomplete="off" spellcheck="false" required>
+      <button class="button" type="submit">Run query</button>
+    </form>
+    <div class="result" data-role="result" role="status" aria-live="polite" tabindex="-1" hidden></div>
+    <p class="success-actions" data-role="success-actions" hidden>
+      <button class="button" type="button" data-role="continue">Finish: review the SOC activity</button>
+    </p>
+    <div class="hints" data-role="hints" hidden>
+      <strong>Unlocked hints (<span data-role="hint-count">0</span>/3)</strong>
+      <ol data-role="hint-list"></ol>
+    </div>
+  </section>
+</main>
+<footer>Fictional bank. No real accounts, money, credentials, or customer data. This GitHub Pages simulation runs entirely in your browser; the Flask lab is a separate local program described in the lab docs.</footer>
+<noscript><p class="engine-error">This simulation needs JavaScript. Enable JavaScript to run the in-browser SQLite engine, or use the local Flask lab instead.</p></noscript>
+<script src="./challenge.js"></script>
+</body>
+</html>
